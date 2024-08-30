@@ -1,0 +1,28 @@
+concurrency: ci-${{ github.ref }}
+
+name: CI Pipeline
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: "00 8 * * 1"
+
+jobs:
+  lint:
+    name: Code lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Go environment
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.22
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v6
+        with:
+          version: latest
+          working-directory: src
+          args: --issues-exit-code=0
