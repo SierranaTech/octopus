@@ -1,4 +1,4 @@
-module github.com/sierra1011/octopus/v0.0.1
+module github.com/sierra1011/octopus
 
 go 1.22.4
 
