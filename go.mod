@@ -1,7 +1,7 @@
 module github.com/sierra1011/octopus
 
 go 1.22.4
-toolchain go1.24.4
+toolchain go1.24.6
 
 require github.com/influxdata/influxdb-client-go/v2 v2.14.0
 
