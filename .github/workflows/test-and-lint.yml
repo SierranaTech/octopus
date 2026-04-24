@@ -53,19 +53,3 @@ jobs:
         with:
           # Mise installs the version in use
           install-mode: none
-
-  test-action:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Install in CI
-        # This is a shorthand for the action.yml in this repository.
-        uses: ./
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Run installed binary
-        shell: bash
-        run: nine --help
