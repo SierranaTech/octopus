@@ -1,0 +1,29 @@
+name: On Pull Request
+run-name: PR checks for ${{ github.ref_name }}
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  test-and-lint:
+    uses: ./.github/workflows/test-and-lint.yml
+    secrets: inherit
+
+  terraform-plan:
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: write
+    needs: test-and-lint
+    uses: 9fin/gha-terraform/.github/workflows/terraform.yml@v2
+    with:
+      aws_account_name: "core-platform-prod"
+      aws_enabled: true
+      tf_apply_enabled: false
+      tf_dir: "terraform/releases"
+      tf_plan_timeout: 5
+      tf_version: "~1.14.0"
+    secrets: inherit

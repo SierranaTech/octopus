@@ -1,0 +1,28 @@
+[tools]
+go = "1.26.2"
+golangci-lint = "2.11.4"
+pre-commit = "4.5.1"
+
+[tasks.tidy]
+description = "Tidy Go module files"
+run = "go mod tidy"
+
+[tasks.fmt]
+depends = ["tidy"]
+description = "Format Go source files"
+run = "gofmt -w ."
+
+[tasks.lint]
+depends = ["fmt"]
+description = "Run linters"
+run = "go vet ./... && golangci-lint run ./..."
+
+[tasks.test]
+depends = ["lint"]
+description = "Run unit tests"
+run = "go test ./... -count=1 -race -v --cover"
+
+[tasks.build]
+depends = ["lint"]
+description = "Build all packages"
+run = "go build ./..."
