@@ -55,7 +55,7 @@ jobs:
           install-mode: none
 
   report:
-    needs: ["test", "lint", "diff", "golanglint"]
+    needs: ["test", "lint", "tidy", "golanglint"]
     runs-on: ubuntu-latest
     if: github.ref_name == 'main'
     timeout-minutes: 10
