@@ -87,7 +87,7 @@ jobs:
         run: |
           mkdir -p .artifacts
           mise run unit_tests
-          go test -skip="TestNineAWS*" -covermode=atomic -coverprofile=.artifacts/coverage.out ./...
+          go test -covermode=atomic -coverprofile=.artifacts/coverage.out ./...
           go tool cover -func=.artifacts/coverage.out | tee .artifacts/coverage-summary.txt
 
       - name: Run local quality grade
