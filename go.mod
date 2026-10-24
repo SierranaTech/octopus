@@ -1,3 +1,3 @@
 module github.com/sierra1011/octopus
 
-go 1.27.0
+go 1.27.3
