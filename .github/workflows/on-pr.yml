@@ -9,5 +9,4 @@ on:
 
 jobs:
   test-and-lint:
-    uses: ./.github/workflows/test-and-lint.yml
-    secrets: inherit
+    uses: ./.github/workflows/ci.yml
