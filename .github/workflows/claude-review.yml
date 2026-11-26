@@ -1,0 +1,42 @@
+name: Claude review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: Pull request number to review
+        required: true
+        type: string
+
+concurrency:
+  group: claude-review-${{ inputs.pr-number || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  review:
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.user.login == 'renovate[bot]'
+    runs-on: homelab-micro
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      id-token: write
+      pull-requests: read
+    steps:
+      - name: Setup
+        uses: SierranaTech/actions/setup@main
+        with:
+          mise: "false"
+
+      - name: Review
+        uses: SierranaTech/actions/pr-review@main
+        with:
+          merge: "true"
+          pr-number: ${{ inputs.pr-number }}
+          prompt: |
+            This repository is octopus: Opinionated Go module to interact with the Octopus
+            API

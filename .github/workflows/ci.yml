@@ -8,7 +8,7 @@ on:
 
 jobs:
   ci:
-    runs-on: ubuntu-latest
+    runs-on: homelab-small
     timeout-minutes: 10
     steps:
       - uses: SierranaTech/actions/setup@main
@@ -19,7 +19,7 @@ jobs:
 
   report:
     needs: ci
-    runs-on: ubuntu-latest
+    runs-on: homelab-small
     if: github.ref_name == 'main'
     timeout-minutes: 10
     steps:
